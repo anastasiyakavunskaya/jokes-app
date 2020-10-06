@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -27,23 +26,24 @@ class JokesFragment : Fragment() {
         val binding: FragmentJokesBinding  = DataBindingUtil.inflate(
            inflater, R.layout.fragment_jokes, container, false)
         binding.lifecycleOwner = this
-        viewModel =
-                ViewModelProviders.of(this).get(JokesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(JokesViewModel::class.java)
+
         val adapter = JokesListAdapter()
         val manager = LinearLayoutManager(activity)
         binding.jokesRecycler.layoutManager = manager
         binding.jokesRecycler.adapter = adapter
-
-               viewModel.jokes.observe(viewLifecycleOwner, Observer {
+        viewModel.jokes.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
         binding.loadButton.setOnClickListener {
             val count = binding.count.text.toString()
             if(count.isNotEmpty()) viewModel.getJokes(count.toInt())
-            else Toast.makeText(context,"please enter number of jokes", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(
+                context,
+                "please enter number of jokes",
+                Toast.LENGTH_SHORT).show()
         }
-
         return binding.root
     }
 }

@@ -10,20 +10,17 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.jokesapp.R
 
 class WebFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: WebViewModel
     private lateinit var webView: WebView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(WebViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_web, container, false)
         webView = root.findViewById(R.id.view_web)
         if (savedInstanceState != null) webView.restoreState(savedInstanceState)
